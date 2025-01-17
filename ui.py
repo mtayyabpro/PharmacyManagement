@@ -1,24 +1,48 @@
 import tkinter as tk
 from tkinter import ttk
-from db_connection import create_connection, close_connection  # Import database functions
+
 
 def add_patient_screen():
     root = tk.Tk()
     root.title("Add Patient and Medicine Detail")
 
-    # Set window dimensions to 90% of screen size
+    # Set window dimensions to 80% of screen size
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
-    window_width = int(screen_width * 1.0)
-    window_height = int(screen_height * 1.0)
+    window_width = int(screen_width * 0.8)
+    window_height = int(screen_height * 0.8)
 
     # Center the window
     x = (screen_width - window_width) // 2
     y = (screen_height - window_height) // 2
     root.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
+    # Sidebar
+    sidebar = tk.Frame(root, width=300, bg="lightblue", relief="raised", borderwidth=2)
+    sidebar.pack(side="left", fill="y")
+
+    # Add buttons or labels in the sidebar
+    sidebar_title = tk.Label(sidebar, text="Menu", font=("Arial", 16, "bold"), bg="lightblue")
+    sidebar_title.pack(pady=10)
+
+    buttons = [
+        "Add Patient and Used Medicine",
+        "Add medicines",
+        "Add Users",
+        "Settings",
+        "Help",
+        "Exit",
+    ]
+    for button_text in buttons:
+        btn = tk.Button(sidebar, text=button_text, width=30, padx=10, pady=5)
+        btn.pack(pady=5)
+
+    # Main Frame
+    main_frame = tk.Frame(root)
+    main_frame.pack(side="right", fill="both", expand=True)
+
     # Patient Details Section
-    patient_frame = tk.LabelFrame(root, text="Patient Details", padx=10, pady=5)
+    patient_frame = tk.LabelFrame(main_frame, text="Patient Details", padx=10, pady=5)
     patient_frame.pack(pady=5, padx=10, fill="x")
 
     # Define labels and entries for patient details
@@ -36,15 +60,14 @@ def add_patient_screen():
         label.grid(row=row, column=col, padx=10, pady=5, sticky="e")
 
         if label_text == "Sex":
-            entry = ttk.Combobox(patient_frame, values=["Male", "Female", "Others"], width=30)
+            entry = ttk.Combobox(patient_frame, values=["Male", "Female", "Others"], width=27)
         else:
             entry = tk.Entry(patient_frame, width=30, bg="lightyellow")
         entry.grid(row=row, column=col + 1, padx=10, pady=5, sticky="w")
         entries[label_text] = entry
 
-
     # Medicine Details Section
-    medicine_frame = tk.LabelFrame(root, text="Medicine Details", padx=10, pady=5)
+    medicine_frame = tk.LabelFrame(main_frame, text="Medicine Details", padx=10, pady=5)
     medicine_frame.pack(pady=5, padx=10, fill="both", expand=False)
 
     # Create a scrollable canvas for medicines
@@ -87,10 +110,8 @@ def add_patient_screen():
         entry = tk.Entry(scrollable_frame, width=10)
         entry.grid(row=row, column=col * 2 + 1, padx=5, pady=5)
 
-
-
-
     root.mainloop()
+
 
 # Run the application
 add_patient_screen()
