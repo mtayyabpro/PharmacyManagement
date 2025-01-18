@@ -1,5 +1,6 @@
-from db_connection import create_connection, close_connection
+from database_connection import create_connection, close_connection
 from ui import add_patient_screen
+from medicines import add_new_stock
 
 
 def main():
@@ -12,6 +13,7 @@ def main():
 
         # Launch the UI
         add_patient_screen()
+        add_new_stock()
 
         # Close the database connection
         close_connection(connection)
