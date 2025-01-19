@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+from medicines import add_new_stock
+
+# Placeholder for add_new_stock function (You can replace this with actual functionality)
 
 
 def add_patient_screen():
@@ -26,15 +29,16 @@ def add_patient_screen():
     sidebar_title.pack(pady=10)
 
     buttons = [
-        "Add Patient and Used Medicine",
-        "Add medicines",
-        "Add Users",
-        "Settings",
-        "Help",
-        "Exit",
+        ("Add Patient and Used Medicine", lambda: print("Navigate to Add Patient and Used Medicine")),
+        ("Add medicines", add_new_stock),  # Pass the function reference, not the result of the function
+        ("Add Users", lambda: print("Navigate to Add Users")),
+        ("Settings", lambda: print("Navigate to Settings")),
+        ("Help", lambda: print("Navigate to Help")),
+        ("Exit", root.quit),  # Built-in method to exit the application
     ]
-    for button_text in buttons:
-        btn = tk.Button(sidebar, text=button_text, width=30, padx=10, pady=5)
+
+    for button_text, command in buttons:
+        btn = tk.Button(sidebar, text=button_text, width=30, padx=10, pady=5, command=command)
         btn.pack(pady=5)
 
     # Main Frame
